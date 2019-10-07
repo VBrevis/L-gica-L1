@@ -7,7 +7,14 @@
 %
 % ----------------------------------------------------------------------
 % Hechos para los defectos
-defecto(a, b).
+% defecto(a, b).
+
+defecto("Pedunculo", "Leve").
+defecto("Pedunculo", "Moderado").
+defecto("Pedunculo", "Severo").
+defecto("Pedunculo", "Muy severo").
+defecto("Piel", "Quemadura solar").
+defecto("Piel", "Pitting").
 
 dañoPredunculo(1, "Leve").
 dañoPredunculo(2, "Moderado").
@@ -19,6 +26,7 @@ dañoPiel("Pitting").
 dañoPiel("Machucon").
 dañoPiel("Magulladura").
 dañoPiel("Cicatriz").
+dañoPiel("Arrugado").
 
 partidura("Medialuna").
 partidura("Sutura").
@@ -110,10 +118,29 @@ conjuntoDefectos(a, b, c):-
    defecto(a, b, c).
 % ----------------------------------------------------------------------
 
+metricaDañoPedunculo(Porcentaje, Tipo):-
+  Porcentaje =< 25,
+   N = 1,
+   dañoPredunculo(N, Tipo).
 
+metricaDañoPedunculo(Porcentaje, Tipo):-
+   Porcentaje > 25,
+   Porcentaje =< 50,
+   N = 2,
+   dañoPredunculo(N, Tipo).
 
+metricaDañoPedunculo(Porcentaje, Tipo):-
+   Porcentaje > 50,
+   Porcentaje =< 75,
+   N = 3,
+   dañoPredunculo(N, Tipo).
 
+metricaDañoPedunculo(Porcentaje, Tipo):-
+   Porcentaje > 75,
+   N = 4,
+   dañoPredunculo(N, Tipo).
 
+guinda(S, C1, C2):-defecto(_, C1), defecto(_,C2), S="No".
 
 
 
